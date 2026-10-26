@@ -104,14 +104,36 @@ function App() {
             <td>
                {editingTodoId === item.id ? (
                  <>
-                   <button disabled={!editedTitle.trim()} onClick={() => handleSaveEdit(item.id)}>Save</button>
-                   <button onClick={handleCancelEdit}>Cancel</button>
+                   <button
+                     disabled={!editedTitle.trim()}
+                     onClick={() => handleSaveEdit(item.id)}
+                     style={{ marginRight: 5, backgroundColor: '#2e7d32', color: '#fff', border: 'none', padding: '6px 10px', borderRadius: 4 }}
+                   >
+                     Save
+                   </button>
+                   <button onClick={handleCancelEdit} style={{ marginRight: 5, backgroundColor: '#e0e0e0', color: '#000', border: 'none', padding: '6px 10px', borderRadius: 4 }}>
+                     Cancel
+                   </button>
                  </>
                ) : (
-                 <button onClick={() => handleEditClick(item)}>Edit</button>
+                 <button
+                   onClick={() => handleEditClick(item)}
+                   style={{ marginRight: 5, backgroundColor: '#f4c542', color: '#000', border: 'none', padding: '6px 10px', borderRadius: 4 }}
+                 >
+                   Edit
+                 </button>
                )}
-               {!item.isCompleted && <button onClick={() => handleDoneClick(item.id)}>Done</button>}
-               <button onClick={() => handleDelete(item.id)}>Delete</button>
+               {!item.isCompleted && (
+                 <button
+                   onClick={() => handleDoneClick(item.id)}
+                   style={{ marginRight: 5, backgroundColor: '#0d1b4d', color: '#fff', border: 'none', padding: '6px 10px', borderRadius: 4 }}
+                 >
+                   Done
+                 </button>
+               )}
+               <button onClick={() => handleDelete(item.id)} style={{ backgroundColor: '#d32f2f', color: '#fff', border: 'none', padding: '6px 10px', borderRadius: 4 }}>
+                 Delete
+               </button>
             </td>
           </tr>
         })}

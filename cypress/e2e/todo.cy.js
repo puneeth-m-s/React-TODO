@@ -20,55 +20,64 @@ describe('Todo app', () => {
   it('adds a todo item to the table', () => {
     addTodo('Buy milk')
 
-    cy.get('table tbody tr').last().should('contain.text', 'Buy milk')
-    cy.get('table tbody tr').last().should('contain.text', 'No')
+    cy.get('#todo-tasks-heading').parent().find('tbody tr').last().should('contain.text', 'Buy milk')
+    cy.get('#completed-tasks-heading').parent().find('tbody tr').should('not.contain.text', 'Buy milk')
   })
 
   it('edits a todo and saves the updated title', () => {
     addTodo('Buy milk')
 
-    cy.get('table tbody tr').last().within(() => {
+    cy.get('#todo-tasks-heading').parent().find('tbody tr').last().within(() => {
       cy.contains('button', 'Edit').click()
     })
 
-    cy.get('table tbody tr').last().find('input[type="text"]').clear().type('Buy bread')
-    cy.get('table tbody tr').last().within(() => {
+    cy.get('#todo-tasks-heading').parent().find('tbody tr').last().find('input[type="text"]').clear().type('Buy bread')
+    cy.get('#todo-tasks-heading').parent().find('tbody tr').last().within(() => {
       cy.contains('button', 'Save').click()
     })
 
-    cy.get('table tbody tr').last().should('contain.text', 'Buy bread')
-    cy.get('table tbody tr').last().should('not.contain.text', 'Buy milk')
+    cy.get('#todo-tasks-heading').parent().find('tbody tr').last().should('contain.text', 'Buy bread')
+    cy.get('#todo-tasks-heading').parent().find('tbody tr').last().should('not.contain.text', 'Buy milk')
   })
 
   it('cancels an edit without changing the todo title', () => {
     addTodo('Read book')
 
-    cy.get('table tbody tr').last().within(() => {
+    cy.get('#todo-tasks-heading').parent().find('tbody tr').last().within(() => {
       cy.contains('button', 'Edit').click()
     })
 
-    cy.get('table tbody tr').last().find('input[type="text"]').clear().type('Read novel')
-    cy.get('table tbody tr').last().within(() => {
+    cy.get('#todo-tasks-heading').parent().find('tbody tr').last().find('input[type="text"]').clear().type('Read novel')
+    cy.get('#todo-tasks-heading').parent().find('tbody tr').last().within(() => {
       cy.contains('button', 'Cancel').click()
     })
 
-    cy.get('table tbody tr').last().should('contain.text', 'Read book')
-    cy.get('table tbody tr').last().should('not.contain.text', 'Read novel')
+    cy.get('#todo-tasks-heading').parent().find('tbody tr').last().should('contain.text', 'Read book')
+    cy.get('#todo-tasks-heading').parent().find('tbody tr').last().should('not.contain.text', 'Read novel')
   })
 
-  it('marks a todo as done and deletes it', () => {
+  it('moves a todo between tables and deletes it', () => {
     addTodo('Write blog')
 
-    cy.get('table tbody tr').last().within(() => {
+    cy.get('#todo-tasks-heading').parent().find('tbody tr').last().within(() => {
       cy.contains('button', 'Done').click()
     })
 
-    cy.get('table tbody tr').last().should('contain.text', 'Yes')
+    cy.get('#todo-tasks-heading').parent().find('tbody tr').should('not.contain.text', 'Write blog')
+    cy.get('#completed-tasks-heading').parent().find('tbody tr').should('contain.text', 'Write blog')
 
-    cy.get('table tbody tr').last().within(() => {
+    cy.get('#completed-tasks-heading').parent().find('tbody tr').last().within(() => {
+      cy.contains('button', 'Mark Incomplete').click()
+    })
+
+    cy.get('#completed-tasks-heading').parent().find('tbody tr').should('not.contain.text', 'Write blog')
+    cy.get('#todo-tasks-heading').parent().find('tbody tr').should('contain.text', 'Write blog')
+
+    cy.get('#todo-tasks-heading').parent().find('tbody tr').last().within(() => {
       cy.contains('button', 'Delete').click()
     })
 
-    cy.get('table tbody tr').should('not.contain.text', 'Write blog')
+    cy.get('#todo-tasks-heading').parent().find('tbody tr').should('not.contain.text', 'Write blog')
+    cy.get('#completed-tasks-heading').parent().find('tbody tr').should('not.contain.text', 'Write blog')
   })
 })

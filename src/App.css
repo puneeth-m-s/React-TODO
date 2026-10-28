@@ -1,3 +1,75 @@
+.todo-app {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 24px;
+}
+
+.todo-entry {
+  margin-bottom: 28px;
+}
+
+.todo-entry input {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.task-section {
+  margin: 0 0 28px;
+  text-align: left;
+}
+
+.task-section h2 {
+  margin-bottom: 12px;
+}
+
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table-scroll table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+}
+
+.table-scroll th,
+.table-scroll td {
+  border: 1px solid var(--border);
+  padding: 10px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.table-scroll th {
+  color: var(--text-h);
+  background: var(--social-bg);
+}
+
+.task-actions {
+  white-space: nowrap;
+}
+
+.empty-state {
+  color: var(--text);
+  text-align: center !important;
+}
+
+@media (max-width: 600px) {
+  .todo-app {
+    padding: 16px;
+  }
+
+  .todo-entry input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .todo-entry button {
+    margin-left: 0 !important;
+  }
+}
+
 .counter {
   font-size: 16px;
   padding: 5px 10px;
